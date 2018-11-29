@@ -103,15 +103,16 @@ def download_batch(datasets,
                 base_fn = os.path.basename(fn)
                 logging.info("      " + os.path.basename(base_fn))
                 save_fn = os.path.join(save_path, base_fn)
-                write_cb = open(save_fn, 'wb').write
 
                 if os.path.exists(save_fn):
                     if overwrite:
+                        write_cb = open(save_fn, 'wb').write
                         logging.info("      Downloading/writing to " + save_fn)
                         ftp.retrbinary("RETR " + fn, write_cb)
                     else:
                         logging.info("      File exists; skipping " + save_fn)
                 else:
+                    write_cb = open(save_fn, 'wb').write
                     logging.info("      Downloading/writing to " + save_fn)
                     ftp.retrbinary("RETR " + fn, write_cb)
 
